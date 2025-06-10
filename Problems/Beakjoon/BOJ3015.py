@@ -30,10 +30,25 @@ for i in range(n - 1):
             num.popleft()
         ans += sum([i for i in range(1, cnt + 1)])
         print(f"ans: {ans}")
-    elif tmp == num[-1]:
+
+    elif tmp > num[-1]:
+        cnt = 0
+        while len(num) > 1:
+            cnt += 1
+            num.pop()
+        ans += sum([ 1 + i for i in range(1, cnt+1)])
+        print(f"ans: {ans}")
 
 
     num.append(tmp)
 
+if len(num) == 2:
+    ans += 1
+else:
+    if num[0] < num[-1]:
+        ans += sum([i for i in range(1, len(num) - 2)])
+    else:
+        ans += sum([i for i in range(1, len(num) - 1)])
 
+print(num)
 print(ans)
