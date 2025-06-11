@@ -17,38 +17,55 @@ num.append(int(sys.stdin.readline().rstrip()))
 ans = 0
 for i in range(n - 1):
 
-    tmp = int(sys.stdin.readline().rstrip())
+    next_person = int(sys.stdin.readline().rstrip())
 
-    if len(num) == 1:
-        num.append(tmp)
-        continue
+    if next_person > num[-1]:
+        cnt = 1
 
-    if tmp < num[-1]:
-        cnt = 0
         while len(num) > 1:
-            cnt += 1
-            num.popleft()
-        ans += sum([i for i in range(1, cnt + 1)])
-        print(f"ans: {ans}")
+            top = num.pop()
 
-    elif tmp > num[-1]:
-        cnt = 0
-        while len(num) > 1:
-            cnt += 1
+            if num[-1] > top:
+                ans += sum([j for j in range(2, cnt + 2)])
+                cnt = 1
+            
+            else:
+                cnt += 1
+
+        if num[0] < next_person:
+            if cnt == 1:
+                ans += 1
+                
+            else:
+                cnt += 1
+                ans += sum([j for j in range(2, cnt + 2)])
+            
             num.pop()
-        ans += sum([ 1 + i for i in range(1, cnt+1)])
-        print(f"ans: {ans}")
 
+        elif num[0] > next_person:
+            if cnt != 1:
+                for _ in range(cnt-1):
+                    num.append(num[0])
 
-    num.append(tmp)
-
+    num.append(next_person)
+    
 if len(num) == 2:
     ans += 1
 else:
-    if num[0] < num[-1]:
-        ans += sum([i for i in range(1, len(num) - 2)])
-    else:
-        ans += sum([i for i in range(1, len(num) - 1)])
+    cnt = 1
+    tmp = num.pop()
+    while num:
+        if num[-1] > tmp:
+            ans += 1
+            tmp = num.pop()
+            continue
 
-print(num)
+        num.pop()
+        cnt += 1
+    ans += sum([i for i in range(1, cnt)])
+    
+
+
+
+print(f"num: {num}")
 print(ans)
