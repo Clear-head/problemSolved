@@ -2,68 +2,72 @@
 """
 
     해야함
+    시간초과 해결요망
 
 """
 
 from collections import deque
 import sys
 
-n = int(sys.stdin.readline().rstrip())
 
+# def solution1():
+#     def is_palindrome(num):
+#         string = deque(str(num))
+
+#         while len(string) > 1:
+#             print(string)
+#             if string.pop() != string.popleft():
+#                 return 0
+            
+#         return 1
+
+#     n = int(sys.stdin.readline().rstrip())
+
+#     cnt = 0
+#     for i in range(1, n+1):
+#         cnt += is_palindrome(i)
+
+#     print(cnt)
+sys.set_int_max_str_digits(1000000000)
+n = int(sys.stdin.readline().rstrip())
 if n < 10:
     print(n)
     sys.exit()
-elif n == 10:
-    print(9)
-    sys.exit()
 
 cnt = 9
-k = 11
 
-if n > 10 ** 9:
-    cnt = 109998
-    k = 10 ** 9 + 1
-elif n > 10 ** 8:
-    cnt = 19998
-    k = 10 ** 8 + 1
-elif n > 10 ** 7:
-    cnt = 10998
-    k = 10 ** 7 + 1
-elif n > 10 ** 6:
-    cnt = 1998
-    k = 10 ** 6 + 1
-elif n > 10 ** 5:
-    cnt = 1098
-    k = 10 ** 5 + 1
-elif n > 10 ** 4:
-    cnt = 198
-    k = 10 ** 4 + 1
-elif n > 10 ** 3:
-    cnt = 108
-    k = 10 ** 3 + 1
-elif n > 100:
-    cnt = 18
-    k = 101
-elif n > 10:
-    cnt = 9
-    k = 10
+def even_palindrome(q):
+    global cnt
 
-dic = {}
+    if not q:
+        for i in range(10):
+            if int(str(i) + str(i)) <= n:
+                q.append(str(i))
+                cnt += 1
 
-for i in range(k, n + 1):
+    tmp = deque()
+    while q:
+        num = q.popleft()
+        for i in range(10):
+            chk = num+str(i)
 
-    flag = True
-    string = str(i)
+            if int(chk + chk[::-1]) <= n:
+                tmp.append(chk)
+                cnt += 1
+            else:
+                break
+    return tmp
 
-    for j in range(len(string)):
-        dic[j] = string[j]
 
-    for j in range(len(string)//2):
-        if dic[j] != dic[len(string) - j - 1]:
-            flag = False
-            break
-    if flag:
-        cnt += 1
+def odd_palindrome(q):
+    tmp = deque()
+    
+
+# odd_palindrome(deque([str(i) for i in range(10)]))
+even = even_palindrome(deque())
+while even:
+    even = even_palindrome(even)
 
 
 print(cnt)
+
