@@ -7,10 +7,13 @@ if n == 1 or m == 1:
 
 listener = sorted([tuple(map(int, stdin.readline().rstrip().split())) for _ in range(n)])
 
-for i in range(0, m-1):
+ans = [sorted(listener, key=lambda x:x[i]) for i in range(m)]
+
+for i in range(m-1):
     for j in range(1, m):
-        if sorted(listener, key=lambda x:x[i]) != sorted(listener, key=lambda x:x[j]):
+        if ans[i] != ans[j]:
             print("NO")
             exit()
+
 
 print("YES")
