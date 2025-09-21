@@ -1,7 +1,6 @@
 from math import comb
-from sys import stdin
 
-n = int(stdin.readline().rstrip())
-m = int(stdin.readline().rstrip())
+n = int(input())
+m = int(input())
 
 print(comb(m-1, m-n))
