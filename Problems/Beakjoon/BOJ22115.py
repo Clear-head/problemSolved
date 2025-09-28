@@ -1,5 +1,5 @@
 n, k = map(int, input().split())
-coffee = sorted(list(map(int, input().split())), reverse=True)
+coffee = list(map(int, input().split()))
 MAX = k+1
 if k in coffee:
     print(1)
@@ -13,9 +13,5 @@ dp[0] = 0
 
 for i in coffee:
     for j in range(k, i-1, -1):
-        if i == j:
-            dp[j] = 1
-        else:
-            dp[j] = min(dp[j], dp[j - i] + 1)
-
+        dp[j] = min(dp[j], dp[j - i] + 1)
 print(dp[k] if dp[k] != MAX else -1)
