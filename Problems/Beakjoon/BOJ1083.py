@@ -3,9 +3,8 @@ from sys import stdin
 n = int(stdin.readline().rstrip())
 nums = list(map(int, stdin.readline().rstrip().split()))
 cost = int(stdin.readline().rstrip())
-ans = sorted(nums, reverse=True)
 
-if n == 1 or cost == 0 or ans == nums:
+if n == 1 or cost == 0 or sorted(nums, reverse=True) == nums:
     print(*nums)
     exit()
 
